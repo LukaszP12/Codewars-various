@@ -6,25 +6,41 @@ public class WorkOnStrings {
 
         for (int i = 0; i < a.length(); i++) {
             String s = a.charAt(i) + "";
-            if (b.contains(s) && Character.isLowerCase(s.charAt(0))) {
-                b = b.replace(s, s.toUpperCase());
-            } else if (b.contains(s) && Character.isUpperCase(s.charAt(0))) {
-                b = b.replace(s, s.toLowerCase());
+            if (b.toLowerCase().contains(s.toLowerCase())) {
+                b = switchCase(b, s);
             }
         }
         result += b;
 
         for (int i = 0; i < b.length(); i++) {
             String s = b.charAt(i) + "";
-            if (a.contains(s) && Character.isLowerCase(s.charAt(0))) {
-                a = a.replace(s, s.toUpperCase());
-            } else if (a.contains(s) && Character.isUpperCase(s.charAt(0))) {
-                a = a.replace(s, s.toLowerCase());
+            if (a.toLowerCase().contains(s.toLowerCase())) {
+                a = switchCase(a, s);
             }
         }
         a += result;
 
         return a;
+    }
+
+    private static String switchCase(String word, String letter) {
+        String newWord = "";
+
+        for (int i = 0; i < word.length(); i++) {
+            String s = word.charAt(i) + "";
+
+            if (s.equalsIgnoreCase(letter)) {
+                if (Character.isUpperCase(s.charAt(0))) {
+                    newWord += s.toLowerCase();
+                    continue;
+                } else if (Character.isLowerCase(s.charAt(0))) {
+                    newWord += s.toUpperCase();
+                    continue;
+                }
+            }
+            newWord += s;
+        }
+        return newWord;
     }
 
     public static void main(String[] args) {
