@@ -5,26 +5,32 @@ import java.util.Set;
 
 public class Bananas {
 
-    static HashMap<String, Integer> bananas = new HashMap<String, Integer>();
+    static HashMap<String, Integer> bananas = new HashMap<>();
 
     static Set<String> bananaCombinations = new HashSet<>();
 
     static Set<String> bananas(final String s) {
         Set<String> bananas = new HashSet<>();
 
+        if (containsBananaSet(s)) {
+
+        }
+
         if (isStillBanana(s)) {
+//            bananaCombinations = new HashSet<>();
             bananaCombinations.add(s);
+//            return bananaCombinations;
         }
 
         for (int i = 0; i < s.length(); i++) {
             String s1 = s.substring(0, i) + '-' + s.substring(i + 1);
-//            if (moreBanana(s, s1)) {
+            if (moreBanana(s, s1)) {
                 bananas(s1);
-//            }
+            }
         }
 
         // Your code here!
-        return Collections.EMPTY_SET;
+        return bananaCombinations;
     }
 
     private static boolean moreBanana(String s, String s1) {
@@ -38,6 +44,16 @@ public class Bananas {
         HashMap<String, Integer> first = convertToBananasMap(s);
         HashMap<String, Integer> second = convertToBananasMap(s1);
 
+        if ((first.getOrDefault("a", 0) != 0 && second.getOrDefault("a", 0) != 0) && (first.getOrDefault("a", 0) - second.getOrDefault("a", 0) > 0)) {
+            return true;
+        } else if ((first.getOrDefault("b", 0) != 0) && (first.getOrDefault("b", 0) - second.getOrDefault("b", 0) > 0)) {
+            return true;
+        } else if ((first.getOrDefault("n", 0) != 0 && second.getOrDefault("n", 0) != 0) && (first.getOrDefault("n", 0) - second.getOrDefault("n", 0) > 0)) {
+            return true;
+        } else if ((first.getOrDefault("s", 0) != 0) && (first.getOrDefault("s", 0) - second.getOrDefault("s", 0) > 0)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -47,7 +63,7 @@ public class Bananas {
             char c = s.charAt(i);
             if (c == 'a' || c == 'b' || c == 'n' || c == 's') {
                 String key = "" + c;
-                map.put(key, map.get(key) + 1);
+                map.put(key, map.getOrDefault(key, 0) + 1);
             }
         }
         return map;
@@ -59,7 +75,9 @@ public class Bananas {
     }
 
     public static void main(String[] args) {
-        Set<String> bananas1 = bananas("b-anana--");
+        Set<String> bananas1 = bananas("bbananana");
+        System.out.println(bananas1);
+//        Set<String> bananas2 = bananas("-banana--");
 
 //        boolean stillBanana = isStillBanana("b-anana--");
 //        System.out.println(stillBanana);
