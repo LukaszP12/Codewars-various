@@ -4,22 +4,31 @@ public class String_incrementer_5kyu {
         String s = str.trim();
 
         String numberEnding = findNumberEnding(s);
+        int endingIndex = findNumberEndingIndex(s);
+
         if ("-1".equals(numberEnding)) {
             return s + "1";
         } else {
-            return addNumberToString(s, Integer.parseInt(numberEnding) + 1, numberEnding.length());
+            return addNumberToString(s, endingIndex, Integer.parseInt(numberEnding) + 1, numberEnding.length());
         }
     }
 
-    private static String addNumberToString(String s, int numberToAdd, int lengthOfOriginalNumber) {
+    private static int findNumberEndingIndex(String s) {
+        int i = s.length() - 1;
 
-        for (int i = 0; i < s.length(); i++) {
+        for (; i >= 0; ) {
             if (Character.isDigit(s.charAt(i))) {
-                return s.substring(0, i) + addMissingZeros(numberToAdd, lengthOfOriginalNumber);
+                i--;
+            } else if (!Character.isDigit(s.charAt(i))) {
+                break;
             }
         }
 
-        return s;
+        return (i == s.length() - 1) ? -1 : i;
+    }
+
+    private static String addNumberToString(String s, int endingIndex, int numberToAdd, int lengthOfOriginalNumber) {
+        return s.substring(0, endingIndex + 1) + addMissingZeros(numberToAdd, lengthOfOriginalNumber);
     }
 
     private static String addMissingZeros(int numberToAdd, int lengthOfOriginalNumber) {
@@ -39,6 +48,8 @@ public class String_incrementer_5kyu {
         for (int i = s.length() - 1; i >= 0; i--) {
             if (Character.isDigit(s.charAt(i))) {
                 ending += s.charAt(i);
+            } else if (!Character.isDigit(s.charAt(i))) {
+                break;
             }
         }
 
