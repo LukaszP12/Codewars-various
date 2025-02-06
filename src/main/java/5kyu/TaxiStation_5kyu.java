@@ -8,14 +8,14 @@ public class TaxiStation_5kyu {
 
         int[] ridesAssigned = new int[numTaxis];
         boolean[] isOccupied = new boolean[numTaxis];
-        int[] returnTime = new int[numTaxis];
+        double[] returnTime = new double[numTaxis];
 
         Arrays.fill(isOccupied, false);
 
         for (int i = 0; i < distances.length; i++) {
-            if (allAreOccupied(isOccupied)) {
+            if (i != 0 && allAreOccupied(isOccupied)) {
                 int fastestReturnIndex = getFastestReturn(returnTime);
-                int timePasted = returnTime[fastestReturnIndex];
+                double timePasted = returnTime[fastestReturnIndex];
                 updateTime(timePasted, returnTime, isOccupied);
             }
 
@@ -23,22 +23,21 @@ public class TaxiStation_5kyu {
             int numTaxiIndex = findTaxi(isOccupied, speeds);
             isOccupied[numTaxiIndex] = true;
             ridesAssigned[numTaxiIndex]++;
-            returnTime[numTaxiIndex] = (distance / speeds[numTaxiIndex] * 2);
+            returnTime[numTaxiIndex] = ((distance / speeds[numTaxiIndex]) * 2);
         }
-
         return ridesAssigned;
     }
 
-    private static void updateTime(int timePasted, int[] returnTime, boolean[] isOccupied) {
+    private static void updateTime(double timePasted, double[] returnTime, boolean[] isOccupied) {
         for (int i = 0; i < returnTime.length; i++) {
-            if (returnTime[i] - timePasted == 0) {
+            if (returnTime[i] - timePasted == 0.0) {
                 isOccupied[i] = false;
             }
             returnTime[i] -= timePasted;
         }
     }
 
-    private static int getFastestReturn(int[] returnTime) {
+    private static int getFastestReturn(double[] returnTime) {
         int index = 0;
         for (int i = 0; i < returnTime.length; i++) {
             if (returnTime[i] < returnTime[index]) {
@@ -82,7 +81,7 @@ public class TaxiStation_5kyu {
         int[] ints3 = TaxiStation_5kyu.calculateTrips(new int[]{120}, new int[]{});
         System.out.println(Arrays.toString(ints3));
 
-        int[] ints4 = TaxiStation_5kyu.calculateTrips(new int[] { 100, 50, 80, 40, 40 }, new int[] { 30, 20, 10 });
+        int[] ints4 = TaxiStation_5kyu.calculateTrips(new int[]{100, 50, 80, 40, 40}, new int[]{30, 20, 10});
         System.out.println(Arrays.toString(ints4));
     }
 }
