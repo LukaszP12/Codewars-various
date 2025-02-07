@@ -4,6 +4,9 @@ import java.util.Arrays;
 
 public class TaxiStation_5kyu {
     public static int[] calculateTrips(int[] distances, int[] speeds) {
+        if (distances.length == 0) return new int[]{0};
+        if (speeds.length == 0) return new int[]{0};
+
         int numTaxis = speeds.length;
 
         int[] ridesAssigned = new int[numTaxis];
@@ -23,7 +26,7 @@ public class TaxiStation_5kyu {
             int numTaxiIndex = findTaxi(isOccupied, speeds);
             isOccupied[numTaxiIndex] = true;
             ridesAssigned[numTaxiIndex]++;
-            returnTime[numTaxiIndex] = ((distance / speeds[numTaxiIndex]) * 2);
+            returnTime[numTaxiIndex] = (((double) distance / (double) speeds[numTaxiIndex]) * 2.0);
         }
         return ridesAssigned;
     }

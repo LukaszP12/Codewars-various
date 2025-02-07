@@ -61,4 +61,46 @@ public class TaxiStation_5kyuTest {
         Assert.assertArrayEquals(results, new int[]{5, 3, 2});
     }
 
+    @Test
+    public void test5() {
+        // given
+        int[] distances = {100, 50, 80, 40, 40, 100, 50, 80, 40, 40, 100, 50, 80, 40, 40};
+        int[] speeds = {30, 20, 10};
+
+        // when
+        int[] results = TaxiStation_5kyu.calculateTrips(distances, speeds);
+        System.out.println(Arrays.toString(results));
+        // toDo find reason for wrong allocation
+
+        // then
+        Assert.assertArrayEquals(results, new int[]{7, 5, 3});
+    }
+
+    @Test
+    public void test6() {
+        // given
+        int[] distances = {};
+        int[] speeds = {50};
+
+        // when
+        int[] results = TaxiStation_5kyu.calculateTrips(distances, speeds);
+        System.out.println(Arrays.toString(results));
+
+        // then
+        Assert.assertArrayEquals(results, new int[]{0});
+    }
+
+    @Test
+    public void test7() {
+        // given
+        int[] distances = {120};
+        int[] speeds = {};
+
+        // when
+        int[] results = TaxiStation_5kyu.calculateTrips(distances, speeds);
+        System.out.println(Arrays.toString(results));
+
+        // then
+        Assert.assertArrayEquals(results, new int[]{0});
+    }
 }
