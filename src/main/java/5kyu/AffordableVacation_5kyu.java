@@ -12,21 +12,26 @@ public class AffordableVacation_5kyu {
             }
         }
 
-        return "money: " + minCostStay;
+        if (minCostStay <= money) {
+            return "money: " + minCostStay;
+        } else {
+            // get stay permitted by funds
+        }
+
+        return "no money";
     }
 
     private static int findConsecutivePrice(int i, int days, int[] cost) {
         int totalCost = 0;
-        for (int j = i; j < cost.length - days; j++) {
+        for (int j = i; j < i + days; j++) {
             totalCost += cost[j];
-                }
+        }
 
         return totalCost;
     }
 
     public static void main(String[] args) {
         System.out.println(findMinCost(10, 1, new int[]{5}));
-        System.out.println(findMinCost(10, 1, new int[]{3, 2, 4}));
         System.out.println(findMinCost(10, 1, new int[]{3, 2, 4}));
         System.out.println(findMinCost(10, 1, new int[]{20, 15, 30}));
         System.out.println(findMinCost(10, 2, new int[]{9, 6, 7, 4}));
