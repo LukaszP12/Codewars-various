@@ -16,6 +16,7 @@ public class AffordableVacation_5kyu {
             return "money: " + minCostStay;
         } else {
             // get stay permitted by funds
+            int stayDays = longestStayForAmountOfMoney(money, cost);
         }
 
         return "no money";
