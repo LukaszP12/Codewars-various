@@ -19,7 +19,7 @@ public class WhoLikesIt_6kyu {
         } else if (likers.size() == 3) {
             return likers.get(0) + ", " + likers.get(1) + " and " + likers.get(2) + " like this";
         } else if (likers.size() > 3) {
-            return likers.get(0) + ", " + likers.get(1) + " and " + (likers.size()-2) + " others like this";
+            return likers.get(0) + ", " + likers.get(1) + " and " + (likers.size() - 2) + " others like this";
         }
 
         return "";

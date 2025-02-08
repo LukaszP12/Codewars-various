@@ -24,6 +24,6 @@ public class FindUniq_6kyu {
     public static void main(String[] args) {
         System.out.println(findUniq(new double[]{1, 1, 1, 2, 1, 1}));
         System.out.println(findUniq(new double[]{0, 0, 0.55, 0, 0}));
-        System.out.println(findUniq(new double[]{1.0, 1.0, 3.0, 8.0, 8.0,4.0}));
+        System.out.println(findUniq(new double[]{1.0, 1.0, 3.0, 8.0, 8.0, 4.0}));
     }
 }

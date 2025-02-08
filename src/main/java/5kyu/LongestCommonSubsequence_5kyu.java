@@ -45,5 +45,8 @@ public class LongestCommonSubsequence_5kyu {
         System.out.println(lcs("abcdef", "abc"));
         System.out.println(lcs("abcdef", "acf"));
         System.out.println(lcs("132535365", "123456789"));
+
+        System.out.println(lcs("anothertest", "notatest"));
+        //toDo this should equal "nottest"
     }
 }
