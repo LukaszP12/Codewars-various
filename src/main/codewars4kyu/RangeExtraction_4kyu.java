@@ -17,20 +17,29 @@ class RangeExtraction_4kyu {
                 continue;
             }
 
-            if (cRange >= 3) {
+            if (cRange >= 2) {
                 result += arr[i - 1 - cRange] + "-" + prev + ",";
                 prev = current;
                 cRange = 0;
                 continue;
+            } else if (cRange == 1) {
+                result += arr[i - 2] + "," + prev + ",";
+            } else {
+                result += prev + ",";
             }
 
-            result += prev + ",";
             prev = current;
+            cRange = 0;
         }
 
-        if (cRange > 0) {
+        if (cRange >= 2) {
             result += arr[i - 1 - cRange] + "-" + prev;
+        } else if (cRange == 1) {
+            result += arr[i - 2] + "," + prev;
+        } else {
+            result += prev;
         }
+
         return result;
     }
 
