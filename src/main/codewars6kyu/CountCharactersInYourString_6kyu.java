@@ -27,6 +27,15 @@ class CountCharactersInYourString_6kyu {
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 
+    public static Map<Character, Integer> count_3(String str) {
+        Map<Character, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < str.length(); i++) {
+            map.merge(str.charAt(i), 1, Integer::sum);
+        }
+        return map;
+    }
+
     public static void main(String[] args) {
         System.out.println(count("a"));
         System.out.println(count("abc"));
@@ -37,5 +46,10 @@ class CountCharactersInYourString_6kyu {
         System.out.println(count_2("abc"));
         System.out.println(count_2("aabbbac"));
         System.out.println(count_2("aaaaa"));
+
+        System.out.println(count_3("a"));
+        System.out.println(count_3("abc"));
+        System.out.println(count_3("aabbbac"));
+        System.out.println(count_3("aaaaa"));
     }
 }
