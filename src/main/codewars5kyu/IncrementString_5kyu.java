@@ -6,12 +6,24 @@ class IncrementString_5kyu {
             return "1";
         }
 
-        char lastChar = str.substring(str.length() - 2, str.length() - 1).charAt(0);
+        char lastChar = str.charAt(str.length() - 1);
 
         if (Character.isDigit(lastChar)) {
             int indexLastDigit = getIndexLastDigit(str);
             String number = str.substring(indexLastDigit);
-            return str.substring(0, indexLastDigit) + "" + (Integer.parseInt(number) + 1);
+
+            String baseWord = str.substring(0, indexLastDigit);
+            int numberSuffix = Integer.parseInt(number) + 1;
+
+            String resultString = baseWord + "" + numberSuffix;
+
+            int diffInputOutput = str.length() - resultString.length();
+            if (diffInputOutput <= 0) {
+                return resultString;
+            } else {
+                String add0s = "0".repeat(diffInputOutput);
+                return baseWord + "" + add0s + numberSuffix;
+            }
         } else {
             return str + "1";
         }
@@ -25,7 +37,7 @@ class IncrementString_5kyu {
                 return i + 1;
             }
         }
-        return -1;
+        return 0;
     }
 
     public static void main(String[] args) {
