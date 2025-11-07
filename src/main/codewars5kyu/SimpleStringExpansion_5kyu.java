@@ -25,7 +25,7 @@ class SimpleStringExpansion_5kyu {
         String content = s.substring(leftIndex + 1, rightIndex);
         String expanded = calculate(content).repeat(digit);
 
-        s = s.substring(0, leftIndex - 1) + expanded + s.substring(rightIndex + 1);
+        s = s.substring(0, digitIndex) + expanded + s.substring(rightIndex + 1);
 
         return calculate(s);
     }
