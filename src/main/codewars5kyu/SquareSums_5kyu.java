@@ -1,43 +1,52 @@
 package codewars5kyu;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 class SquareSums_5kyu {
     public static List<Integer> squareSumsRow(int n) {
         List<Integer> result = new ArrayList<>();
-        Set<Integer> currentNums = new HashSet<>();
+        boolean[] used = new boolean[n + 1];
 
         for (int i = 1; i < n; i++) {
-            int pairNum = findPair(i, n, currentNums);
-            currentNums.add(pairNum);
-            result.add(pairNum);
-
-            currentNums.add(i);
+            result.clear();
+            Arrays.fill(used, false);
             result.add(i);
+            used[i] = true;
+
+            if (buildChain(i, n, used, result)) {
+                return result;
+            }
         }
 
         return result;
     }
 
-    private static int findPair(int i, int n, Set<Integer> currentNums) {
-        Set<Integer> squares = new TreeSet<>();
-
-        for (int j = 1; j * j <= n * 2; j++) {
-            squares.add(j * j);
+    private static boolean buildChain(int current, int n, boolean used[], List<Integer> result) {
+        if (result.size() == n) {
+            return true;
         }
 
-        for (int square : squares) {
-            int remainder = square - i;
-            if (remainder > 0 && !currentNums.contains(remainder)) {
-                return remainder;
+        for (int next = 1; next <= n; next++) {
+            if (!used[next] && isPerfectSquare(current + next)) {
+                used[next] = true;
+                result.add(next);
+
+                if (buildChain(next, n, used, result)) {
+                    return true;
+                }
+
+                used[next] = false;
+                result.add(result.size() - 1);
             }
         }
+        return false;
+    }
 
-        return 0;
+    private static boolean isPerfectSquare(int x) {
+        int r = (int) Math.sqrt(x);
+        return r * r == x;
     }
 
     public static void main(String[] args) {
