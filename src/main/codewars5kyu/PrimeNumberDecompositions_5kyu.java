@@ -9,8 +9,10 @@ import java.util.TreeSet;
 class PrimeNumberDecompositions_5kyu {
 
     public static Long[] getAllPrimeFactors(long n) {
+        if (n <= 1) return new Long[0];
         Set<Integer> primes = getPrimes(n);
-        return findDivisors(n, primes, new ArrayList<>());
+        Long[] result = findDivisors(n, primes, new ArrayList<>());
+        return result == null ? new Long[]{n} : result;
     }
 
     private static Long[] findDivisors(long n, Set<Integer> primes, List<Integer> divisors) {
@@ -90,7 +92,18 @@ class PrimeNumberDecompositions_5kyu {
     }
 
     public static Long[] getPrimeFactorPotencies(long n) {
-        return new Long[]{};
+        Long[][] uniquePrimeFactorsWithCount = getUniquePrimeFactorsWithCount(n);
+
+        Long[] primes = uniquePrimeFactorsWithCount[0];
+        Long[] counts = uniquePrimeFactorsWithCount[1];
+
+        Long[] results = new Long[primes.length];
+
+        for (int i = 0; i < primes.length; i++) {
+            results[i] = (long) Math.pow(primes[i], counts[i]);  // prime^power
+        }
+
+        return results;
     }
 
     public static void main(String[] args) {
@@ -99,21 +112,34 @@ class PrimeNumberDecompositions_5kyu {
 //
 //        Long[] allPrimeFactors2 = getAllPrimeFactors(150);
 //        Arrays.stream(allPrimeFactors2).forEach(System.out::println);
-        Long[][] uniquePrimeFactorsWithCount = getUniquePrimeFactorsWithCount(100);
-        for (int i = 0; i < uniquePrimeFactorsWithCount.length; i++) {
-            for (int j = 0; j < uniquePrimeFactorsWithCount[0].length; j++) {
-                System.out.println(uniquePrimeFactorsWithCount[i][j]);
-            }
-        }
-        System.out.println();
 
-        Long[][] uniquePrimeFactorsWithCount2 = getUniquePrimeFactorsWithCount(150);
-        for (int i = 0; i < uniquePrimeFactorsWithCount2.length; i++) {
-            for (int j = 0; j < uniquePrimeFactorsWithCount2[0].length; j++) {
-                System.out.println(uniquePrimeFactorsWithCount2[i][j]);
-            }
-        }
-        
-        
+//        Long[][] uniquePrimeFactorsWithCount = getUniquePrimeFactorsWithCount(100);
+//        for (int i = 0; i < uniquePrimeFactorsWithCount.length; i++) {
+//            for (int j = 0; j < uniquePrimeFactorsWithCount[0].length; j++) {
+//                System.out.println(uniquePrimeFactorsWithCount[i][j]);
+//            }
+//        }
+//        System.out.println();
+//
+//        Long[][] uniquePrimeFactorsWithCount2 = getUniquePrimeFactorsWithCount(150);
+//        for (int i = 0; i < uniquePrimeFactorsWithCount2.length; i++) {
+//            for (int j = 0; j < uniquePrimeFactorsWithCount2[0].length; j++) {
+//                System.out.println(uniquePrimeFactorsWithCount2[i][j]);
+//            }
+//        }
+
+        Long[] primeFactorPotencies = getPrimeFactorPotencies(100);
+        Arrays.stream(primeFactorPotencies).forEach(System.out::println);
+
+        long[][] longs = {
+                {1L, 2L, 3L},
+                {4L, 5L, 6L},
+        };
+
+        long l = longs[0][0] * longs[1][0];
+        long l1 = longs[0][1] * longs[1][1];
+        long l2 = longs[0][2] * longs[1][2];
+
+
     }
 }
