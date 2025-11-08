@@ -54,3 +54,4 @@ class SquareSums_5kyu {
         Arrays.stream(ints).forEach(System.out::println);
     }
 }
+// toDo not all adjacent pairs are perfect squares
