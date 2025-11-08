@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 class SquareSums_5kyu {
-    public static List<Integer> squareSumsRow(int n) {
+    public static int[] squareSumsRow(int n) {
         List<Integer> result = new ArrayList<>();
         boolean[] used = new boolean[n + 1];
 
@@ -16,11 +16,11 @@ class SquareSums_5kyu {
             used[i] = true;
 
             if (buildChain(i, n, used, result)) {
-                return result;
+                return result.stream().mapToInt(Integer::intValue).toArray();
             }
         }
 
-        return result;
+        return result.stream().mapToInt(Integer::intValue).toArray();
     }
 
     private static boolean buildChain(int current, int n, boolean used[], List<Integer> result) {
@@ -50,6 +50,7 @@ class SquareSums_5kyu {
     }
 
     public static void main(String[] args) {
-        System.out.println(squareSumsRow(15));
+        int[] ints = squareSumsRow(15);
+        Arrays.stream(ints).forEach(System.out::println);
     }
 }
