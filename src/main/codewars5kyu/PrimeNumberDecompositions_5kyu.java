@@ -61,6 +61,9 @@ class PrimeNumberDecompositions_5kyu {
     }
 
     public static Long[][] getUniquePrimeFactorsWithCount(long n) {
+        if (n <= 1) {
+            return new Long[][]{ new Long[0], new Long[0] };
+        }
         Long[] allPrimeFactors = getAllPrimeFactors(n);
         Arrays.sort(allPrimeFactors);
 
