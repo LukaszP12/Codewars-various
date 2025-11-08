@@ -1,35 +1,36 @@
 package codewars5kyu;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.IntStream;
 
 class PowerSumDig_5kyu {
 
     public static long powerSumDigTerm(int n) {
         List<Long> results = new ArrayList<>();
-        long num = 1;
 
-        while (results.size() < n) {
-            char[] digits = String.valueOf(num).toCharArray();
-            int sum = IntStream.range(0, digits.length)
-                    .map(i -> digits[i] - '0')
-                    .sum();
+        for (long base = 2; base <= 200; base++) {
+            long value = base * base; // start at base^2
 
-            if (sum > 1) {  // ✅ ignore 0 and 1
-                long power = sum * sum;
-                while (power <= num) {
-                    if (power == num) {
-                        results.add(num);
-                        break;
-                    }
-                    power *= sum;
+            while (value < Long.MAX_VALUE / base) { // avoid overflow
+                if (sumDigits(value) == base) {
+                    results.add(value);
                 }
+                value *= base; // next power
             }
-            num++;
         }
 
-        return results.get(results.size() - 1);
+        Collections.sort(results);
+        return results.get(n - 1);
+    }
+
+    private static int sumDigits(long n) {
+        int sum = 0;
+        while (n > 0) {
+            sum += n % 10;
+            n /= 10;
+        }
+        return sum;
     }
 
     public static void main(String[] args) {
