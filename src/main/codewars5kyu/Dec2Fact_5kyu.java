@@ -3,7 +3,26 @@ package codewars5kyu;
 class Dec2Fact_5kyu {
 
     public static String dec2FactString(long nb) {
-        return "";
+        if (nb == 0) {
+            return "0";
+        }
+
+        String output = "";
+
+        int k = 1;
+        while (getFactorial(k) <= nb) {
+            k++;
+        }
+        k--;
+
+        for (int i = k; i >= 1; i--) {
+            long factorial = getFactorial(i);
+            long coef = nb / factorial;
+            nb = nb % factorial;
+            output += toChar(coef);
+        }
+
+        return output + "0";
     }
 
     public static long factString2Dec(String str) {
@@ -28,8 +47,15 @@ class Dec2Fact_5kyu {
         return num;
     }
 
+    private static char toChar(long value) {
+        if (value < 10) return (char) ('0' + value);
+        else return (char) ('A' + (value - 10));
+    }
+
     public static void main(String[] args) {
         System.out.println(factString2Dec("341010"));
         System.out.println(factString2Dec("1212210"));
+
+        System.out.println(dec2FactString(463));
     }
 }
