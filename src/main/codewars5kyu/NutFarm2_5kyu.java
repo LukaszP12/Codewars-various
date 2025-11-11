@@ -17,24 +17,32 @@ class NutFarm2_5kyu {
             landingIndexes.add(landingPos);
         }
 
-        return landingIndexes.stream().mapToInt(Integer::intValue).toArray();
+        int minLength = Integer.MAX_VALUE;
+        for (int i = 0; i < tree.length; i++) {
+            if (tree[i].length < minLength) {
+                minLength = tree[i].length;
+            }
+        }
+
+        return createResultArray(landingIndexes, minLength);
     }
 
     private static int fallNut(int level, int nut, char[][] tree) {
-        int cPos = Math.max(0, Math.min(nut, tree[level].length - 1));
+        int cPos = nut;
 
-        for (int cLevel = level; cLevel < tree.length; cLevel++) {
-            int width = tree[cLevel].length;
+        for (int r = level; r < tree.length; r++) {
             if (cPos < 0) return 0;
-            if (cPos >= width) return width - 1;
+            if (cPos >= tree[r].length) return tree[r].length - 1;
 
-            char cChar = tree[cLevel][cPos];
+            char c = tree[r][cPos];
 
-            if (cChar == '\\') cPos++;
-            else if (cChar == '/') cPos--;
-
-            if (cPos < 0) return 0;
-            if (cPos >= width) return width - 1;
+            if (c == '\\') {
+                cPos++;
+                if (cPos >= tree[r].length) return tree[r].length - 1;
+            } else if (c == '/') {
+                cPos--;
+                if (cPos < 0) return 0;
+            }
         }
 
         return cPos;
@@ -51,6 +59,18 @@ class NutFarm2_5kyu {
             }
         }
         return nuts;
+    }
+
+    private static int[] createResultArray(List<Integer> landingIndexes, int length) {
+        int[] output = new int[length];
+        Arrays.fill(output, 0);
+
+        for (int i : landingIndexes) {
+            if (i >= 0 && i < length) {
+                output[i]++;
+            }
+        }
+        return output;
     }
 
     public static void main(String[] args) {
