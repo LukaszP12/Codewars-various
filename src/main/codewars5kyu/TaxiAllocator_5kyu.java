@@ -1,24 +1,34 @@
 package codewars5kyu;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 class TaxiAllocator_5kyu {
     public static int minNumTaxis(int[] requests) {
         return 1;
     }
 
     public static int minNumTaxis(int[][] requests) {
-        int minTaxis = 0;
+        if (requests == null || requests.length == 0) {
+            return 0;
+        }
+        Arrays.sort(requests, Comparator.comparingInt(r -> r[0]));
 
-        int end = 0;
-        minTaxis++;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
 
         for (int[] req : requests) {
-            if (req[0] + 1 < end) {
-                minTaxis++;
+            int start = req[0];
+            int end = req[1];
+
+            if (!pq.isEmpty() && pq.peek() < start) {
+                pq.poll();
             }
-            end = req[1];
+
+            pq.offer(end);
         }
 
-        return minTaxis;
+        return pq.size();
     }
 
     public static void main(String[] args) {
